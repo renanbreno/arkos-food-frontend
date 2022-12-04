@@ -6,13 +6,32 @@ import { Button } from '../components/Button';
 import { Envelope, Lock, User } from 'phosphor-react';
 import { FormEvent, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import axios from 'axios';
 
 export function Signin() {
     const [isNewRegister, setIsNewRegister] = useState(false);
+    const [inputValues, setInputValues] = useState({});
 
     function handleIsNewRegister(event: FormEvent) {
         event.preventDefault();
         setIsNewRegister(!isNewRegister);
+    }
+
+    const handleChangeValues = (value: any) => {        
+        setInputValues(preValues => ({
+            ...preValues,
+            [value.target.name]: value.target.value
+        }))
+    }
+
+    function handleSubmitForm(event: FormEvent) {
+        event.preventDefault();
+        if (isNewRegister) {
+            axios.post("http://localhost:3000/user", 
+            inputValues)
+            .then(response => console.log(response))
+            .catch(err => console.log(err))
+        }
     }
 
     return (
@@ -23,7 +42,7 @@ export function Signin() {
                 </motion.div>
             </div>
             <div className='flex justify-center items-center h-screen w-1/2 max-lg:w-full bg-white'>
-                <motion.form className='w-full max-w-[60%] max-lg:max-w-[90%] flex justify-center items-center flex-col gap-4'>
+                <motion.form onSubmit={handleSubmitForm} className='w-full max-w-[60%] max-lg:max-w-[90%] flex justify-center items-center flex-col gap-4'>
                     <Logo />
                     <AnimatePresence>
                         {isNewRegister && (
@@ -31,9 +50,9 @@ export function Signin() {
                                 <Text>Nome</Text>
                                 <TextInput.Root>
                                     <TextInput.Icon>
-                                        <Envelope />
+                                        <User />
                                     </TextInput.Icon>
-                                    <TextInput.Input placeholder='Insira seu nome' />
+                                    <TextInput.Input name='name' onChange={handleChangeValues} placeholder='Insira seu nome' />
                                 </TextInput.Root>
                             </motion.label>
                         )}
@@ -45,16 +64,16 @@ export function Signin() {
                             <TextInput.Icon>
                                 <Envelope />
                             </TextInput.Icon>
-                            <TextInput.Input placeholder='Insira seu email' />
+                            <TextInput.Input name='email' onChange={handleChangeValues} placeholder='Insira seu email' />
                         </TextInput.Root>
                     </label>
                     <label className='w-full'>
                         <Text>Senha</Text>
                         <TextInput.Root>
                             <TextInput.Icon>
-                                <Envelope />
+                                <Lock />
                             </TextInput.Icon>
-                            <TextInput.Input placeholder='Insira sua senha' />
+                            <TextInput.Input name='password' onChange={handleChangeValues} placeholder='*********' />
                         </TextInput.Root>
                     </label>
                     <AnimatePresence>
@@ -63,9 +82,9 @@ export function Signin() {
                         <Text>Confirmação de senha</Text>
                         <TextInput.Root>
                             <TextInput.Icon>
-                                <Envelope />
+                                <Lock />
                             </TextInput.Icon>
-                            <TextInput.Input placeholder='Confirme sua senha' />
+                            <TextInput.Input name='confirmPassword' onChange={handleChangeValues} placeholder='*********' />
                         </TextInput.Root>
                     </motion.label>
                     )}
