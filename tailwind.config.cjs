@@ -15,6 +15,7 @@ module.exports = {
     colors: {
       transparent: "transparent",
       black: "#000000",
+      white: "#FFFFFF",
 
       brand: {
         "p-1": "#283253",
@@ -28,7 +29,12 @@ module.exports = {
       },
       gray: {
         "p-1": "#303030",
-        "p0": "#1C2025"
+        "p0": "#1C2025",
+        900: '#121214',
+        800: '#202024',
+        400: '#7C7C8A',
+        200: '#C4C4CC',
+        100: '#E1E1E6',
       },
       white: {
         "s-1": "#EDEFF2",
