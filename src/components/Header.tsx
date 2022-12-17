@@ -5,7 +5,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
 export function Header() {
     return (
-        <header className='w-full flex justify-between items-center'>
+        <header className='w-full flex justify-between items-center max-lg:flex-col'>
             <div>
                 <Logo />
             </div>
