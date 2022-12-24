@@ -24,12 +24,6 @@ export function Catalog() {
     const [search, setSearch] = useState('');
     const filteredProducts = products.filter(({ name }) => name.toLowerCase().includes(search.toLowerCase()));
 
-    function retryFetchProducts() {
-        axios.get("http://localhost:3000/product")
-            .then(response => setProducts(response.data))
-            .catch(err => console.log(err))
-    }
-
     useEffect(() => {
         axios.get("http://localhost:3000/product")
             .then(response => setProducts(response.data))
@@ -86,7 +80,8 @@ export function Catalog() {
                                 </ProductCard>
                             ))
                     }
-                    {products.length === 0 || filteredProducts.length === 0 && <EmptyState
+                    {products.length === 0 || filteredProducts.length === 0 && 
+                    <EmptyState
                         textChildren='Sem produtos por aqui...'
                     >
                         <NoSearchResult />
