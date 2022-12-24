@@ -86,10 +86,8 @@ export function Catalog() {
                                 </ProductCard>
                             ))
                     }
-                    {products.length === 0 && <EmptyState
+                    {products.length === 0 || filteredProducts.length === 0 && <EmptyState
                         textChildren='Sem produtos por aqui...'
-                        buttonChildren='Carregar novamente'
-                        executeGenericFunction={retryFetchProducts}
                     >
                         <NoSearchResult />
                     </EmptyState>}
