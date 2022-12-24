@@ -6,6 +6,8 @@ import { MagnifyingGlass } from 'phosphor-react';
 import { ProductCard } from '../components/ProductCard';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { EmptyState } from '../components/EmptyState';
+import { NoSearchResult } from '../assets/NoSearchResult';
 
 interface Products {
     name: string;
@@ -20,11 +22,18 @@ interface Products {
 export function Catalog() {
     const [products, setProducts] = useState<Products[]>([]);
     const [search, setSearch] = useState('');
-    const filteredProducts = products.filter(({ name }) => name.includes(search));
+    const filteredProducts = products.filter(({ name }) => name.toLowerCase().includes(search.toLowerCase()));
+
+    function retryFetchProducts() {
+        axios.get("http://localhost:3000/product")
+            .then(response => setProducts(response.data))
+            .catch(err => console.log(err))
+    }
 
     useEffect(() => {
         axios.get("http://localhost:3000/product")
             .then(response => setProducts(response.data))
+            .catch(err => console.log(err))
     }, []);
 
     return (
@@ -36,7 +45,7 @@ export function Catalog() {
                         <TextInput.Icon>
                             <MagnifyingGlass />
                         </TextInput.Icon>
-                        <TextInput.Input placeholder='Busque por um produto' />
+                        <TextInput.Input placeholder='Busque por um produto' onChange={(e) => setSearch(e.target.value)} />
                     </TextInput.Root>
                     <Button.Root className='w-24'>
                         <Button.Icon>
@@ -47,19 +56,43 @@ export function Catalog() {
 
                 <Heading className='mt-4'>Produtos</Heading>
                 <div className='flex max-lg:flex-col flex-wrap gap-6 mt-4 justify-around'>
-                    {products.map((item, key) => (
-                        <ProductCard
-                            key={key}
-                            name={item.name}
-                            description={item.description}
-                            avaliation={item.avaliation}
-                            avaliationAmount={item.avaliationAmount}
-                            inventory={item.inventory}
-                            price={item.price}
-                            productImg={item.productImg}
-                        >
-                        </ProductCard>
-                    ))}
+                    {
+                        search.length > 0 ?
+                            filteredProducts.map((item, key) => (
+                                <ProductCard
+                                    key={key}
+                                    name={item.name}
+                                    description={item.description}
+                                    avaliation={item.avaliation}
+                                    avaliationAmount={item.avaliationAmount}
+                                    inventory={item.inventory}
+                                    price={item.price}
+                                    productImg={item.productImg}
+                                >
+                                </ProductCard>
+                            ))
+                            :
+                            products.map((item, key) => (
+                                <ProductCard
+                                    key={key}
+                                    name={item.name}
+                                    description={item.description}
+                                    avaliation={item.avaliation}
+                                    avaliationAmount={item.avaliationAmount}
+                                    inventory={item.inventory}
+                                    price={item.price}
+                                    productImg={item.productImg}
+                                >
+                                </ProductCard>
+                            ))
+                    }
+                    {products.length === 0 && <EmptyState
+                        textChildren='Sem produtos por aqui...'
+                        buttonChildren='Carregar novamente'
+                        executeGenericFunction={retryFetchProducts}
+                    >
+                        <NoSearchResult />
+                    </EmptyState>}
                 </div>
             </div>
         </div>

@@ -2,6 +2,7 @@ import { Logo } from '../assets/Logo';
 import { ShoppingCart } from 'phosphor-react';
 import { Text } from '../components/Text';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Link } from 'react-router-dom';
 
 export function Header() {
     return (
@@ -21,14 +22,18 @@ export function Header() {
                     <DropdownMenu.Portal>
                         <DropdownMenu.Content className='bg-white-s0 py-4 px-6 rounded-xl' sideOffset={5}>
                             <DropdownMenu.Item className="DropdownMenuItem" disabled>
-                                <Text className='text-gray-p0 cursor-pointer' asChild>
-                                    <a href="">Editar perfil</a>
-                                </Text>
+                                <Link to='/edicao-perfil'>
+                                    <Text className='text-gray-p0 cursor-pointer' asChild>
+                                        <a href="">Editar perfil</a>
+                                    </Text>
+                                </Link>
                             </DropdownMenu.Item>
                             <DropdownMenu.Item className="DropdownMenuItem" disabled>
-                                <Text className='text-gray-p0 cursor-pointer' asChild>
-                                    <a href="">Sair</a>
-                                </Text>
+                                <Link to='/'>
+                                    <Text className='text-gray-p0 cursor-pointer' asChild>
+                                        <a href="">Sair</a>
+                                    </Text>
+                                </Link>
                             </DropdownMenu.Item>
                         </DropdownMenu.Content>
                     </DropdownMenu.Portal>

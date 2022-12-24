@@ -3,6 +3,7 @@ import { Text } from "../components/Text";
 import { TextInput } from "../components/Input";
 import { Envelope, Lock, User } from 'phosphor-react';
 import { Button } from "../components/Button";
+import { Link } from "react-router-dom";
 
 export function EditProfile() {
     return (
@@ -10,14 +11,18 @@ export function EditProfile() {
             <div className='w-full max-w-[90%] flex flex-col items-center'>
                 <Header />
                 <div className="flex gap-2 mt-6">
-
-                    <Text className="text-helpers-error" asChild>
-                        <a href="">Página inicial</a>
-                    </Text>
+                    <Link to='/catalogo'>
+                        <Text className="text-helpers-error" asChild>
+                            <a href="">Página inicial</a>
+                        </Text>
+                    </Link>
                     <Text className="text-secondary-s-1"> {">"} </Text>
-                    <Text asChild>
-                        <a href="">Editar perfil</a>
-                    </Text>
+                    <Link to='/edicao-perfil'>
+                        <Text asChild>
+                            <a href="">Editar perfil</a>
+                        </Text>
+                    </Link>
+                    
                 </div>
 
                 <form className="flex flex-col gap-4 w-full max-w-[40%] max-lg:max-w-full max:lg justify-center items-center mt-6">

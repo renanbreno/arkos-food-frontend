@@ -3,6 +3,7 @@ import { ProductCardCart } from "../components/ProductCardCart";
 import { Text } from "../components/Text";
 import { Heading } from "../components/Heading";
 import { Button } from "../components/Button";
+import { Link } from "react-router-dom";
 
 export function Cart() {
     return (
@@ -10,14 +11,18 @@ export function Cart() {
             <div className="w-full max-w-[90%]">
                 <Header />
                 <div className="flex gap-2 mt-6">
-
-                    <Text className="text-helpers-error" asChild>
-                        <a href="">Página inicial</a>
-                    </Text>
+                    <Link to='/'>
+                        <Text className="text-helpers-error" asChild>
+                            <a href="">Página inicial</a>
+                        </Text>
+                    </Link>
+                    
+                    <Link to='/carrinho'>
+                        <Text asChild>
+                            <a href="">Carrinho</a>
+                        </Text>
+                    </Link>
                     <Text className="text-secondary-s-1"> {">"} </Text>
-                    <Text asChild>
-                        <a href="">Carrinho</a>
-                    </Text>
                 </div>
 
                 <div className="flex flex-col w-full mt-6">

@@ -7,6 +7,7 @@ import { Envelope, Lock, User } from 'phosphor-react';
 import { FormEvent, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 export function Signin() {
     const [isNewRegister, setIsNewRegister] = useState(false);
@@ -17,7 +18,7 @@ export function Signin() {
         setIsNewRegister(!isNewRegister);
     }
 
-    const handleChangeValues = (value: any) => {        
+    const handleChangeValues = (value: any) => {
         setInputValues(preValues => ({
             ...preValues,
             [value.target.name]: value.target.value
@@ -27,17 +28,17 @@ export function Signin() {
     function handleSubmitForm(event: FormEvent) {
         event.preventDefault();
         if (isNewRegister) {
-            axios.post("http://localhost:3000/user", 
-            inputValues)
-            .then(response => console.log(response))
-            .catch(err => console.log(err))
+            axios.post("http://localhost:3000/user",
+                inputValues)
+                .then(response => console.log(response))
+                .catch(err => console.log(err))
         }
     }
 
     return (
         <div className='flex h-screen w-screen'>
             <div className='flex justify-center items-center h-screen w-1/2 bg-white-s+1 max-lg:hidden overflow-hidden'>
-                <motion.div animate={{rotate: isNewRegister ? 360 : 0}}>
+                <motion.div animate={{ rotate: isNewRegister ? 360 : 0 }}>
                     {isNewRegister ? <ShoppingCartSecondary /> : <ShoppingCartPrimary />}
                 </motion.div>
             </div>
@@ -46,7 +47,7 @@ export function Signin() {
                     <Logo />
                     <AnimatePresence>
                         {isNewRegister && (
-                            <motion.label initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} transition={{delay: 0.2}} className='w-full'>
+                            <motion.label initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ delay: 0.2 }} className='w-full'>
                                 <Text>Nome</Text>
                                 <TextInput.Root>
                                     <TextInput.Icon>
@@ -77,22 +78,24 @@ export function Signin() {
                         </TextInput.Root>
                     </label>
                     <AnimatePresence>
-                    {isNewRegister && (
-                        <motion.label initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} transition={{delay: 0.2}} className='w-full'>
-                        <Text>Confirmação de senha</Text>
-                        <TextInput.Root>
-                            <TextInput.Icon>
-                                <Lock />
-                            </TextInput.Icon>
-                            <TextInput.Input name='confirmPassword' onChange={handleChangeValues} placeholder='*********' />
-                        </TextInput.Root>
-                    </motion.label>
-                    )}
+                        {isNewRegister && (
+                            <motion.label initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ delay: 0.2 }} className='w-full'>
+                                <Text>Confirmação de senha</Text>
+                                <TextInput.Root>
+                                    <TextInput.Icon>
+                                        <Lock />
+                                    </TextInput.Icon>
+                                    <TextInput.Input name='confirmPassword' onChange={handleChangeValues} placeholder='*********' />
+                                </TextInput.Root>
+                            </motion.label>
+                        )}
                     </AnimatePresence>
-                    
-                    <Button.Root className='mt-6'>
-                        Entrar na plataforma
-                    </Button.Root>
+
+                    <Link className='w-full' to='catalogo'>
+                        <Button.Root className='mt-6'>
+                            Entrar na plataforma
+                        </Button.Root>
+                    </Link>
 
                     <footer>
                         <div className='flex gap-2'>
