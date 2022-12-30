@@ -25,7 +25,7 @@ export function Catalog() {
     const filteredProducts = products.filter(({ name }) => name.toLowerCase().includes(search.toLowerCase()));
 
     useEffect(() => {
-        axios.get("http://localhost:3000/product")
+        axios.get("https://arkos-food-backend-cyh49x2p0-renanbreno1.vercel.app/product")
             .then(response => setProducts(response.data))
             .catch(err => console.log(err))
     }, []);
